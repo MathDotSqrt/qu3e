@@ -36,7 +36,7 @@ q3Quaternion::q3Quaternion( )
 }
 
 //--------------------------------------------------------------------------------------------------
-q3Quaternion::q3Quaternion( r32 a, r32 b, r32 c, r32 d )
+q3Quaternion::q3Quaternion( q3r32 a, q3r32 b, q3r32 c, q3r32 d )
 	: x( a )
 	, y( b )
 	, z( c )
@@ -45,16 +45,16 @@ q3Quaternion::q3Quaternion( r32 a, r32 b, r32 c, r32 d )
 }
 
 //--------------------------------------------------------------------------------------------------
-q3Quaternion::q3Quaternion( const q3Vec3& axis, r32 radians )
+q3Quaternion::q3Quaternion( const q3Vec3& axis, q3r32 radians )
 {
 	Set( axis, radians );
 }
 
 //--------------------------------------------------------------------------------------------------
-void q3Quaternion::Set( const q3Vec3& axis, r32 radians )
+void q3Quaternion::Set( const q3Vec3& axis, q3r32 radians )
 {
-	r32 halfAngle = r32( 0.5 ) * radians;
-	r32 s = std::sin( halfAngle );
+	q3r32 halfAngle = q3r32( 0.5 ) * radians;
+	q3r32 s = std::sin( halfAngle );
 	x = s * axis.x;
 	y = s * axis.y;
 	z = s * axis.z;
@@ -62,37 +62,37 @@ void q3Quaternion::Set( const q3Vec3& axis, r32 radians )
 }
 
 //--------------------------------------------------------------------------------------------------
-void q3Quaternion::ToAxisAngle( q3Vec3* axis, r32* angle ) const
+void q3Quaternion::ToAxisAngle( q3Vec3* axis, q3r32* angle ) const
 {
-	assert( w <= r32( 1.0 ) );
+	assert( w <= q3r32( 1.0 ) );
 
-	*angle = r32( 2.0 ) * std::acos( w );
+	*angle = q3r32( 2.0 ) * std::acos( w );
 
-	r32 l = std::sqrt( r32( 1.0 ) - w * w );
+	q3r32 l = std::sqrt( q3r32( 1.0 ) - w * w );
 
-	if ( l == r32( 0.0 ) )
+	if ( l == q3r32( 0.0 ) )
 	{
-		axis->Set( r32( 0.0 ), r32( 0.0 ), r32( 0.0 ) );
+		axis->Set( q3r32( 0.0 ), q3r32( 0.0 ), q3r32( 0.0 ) );
 	}
 
 	else
 	{
-		l = r32( 1.0 ) / l;
+		l = q3r32( 1.0 ) / l;
 		axis->Set( x * l, y * l, z * l );
 	}
 }
 
 //--------------------------------------------------------------------------------------------------
-void q3Quaternion::Integrate( const q3Vec3& dv, r32 dt )
+void q3Quaternion::Integrate( const q3Vec3& dv, q3r32 dt )
 {
-	q3Quaternion q( dv.x * dt, dv.y * dt, dv.z * dt, r32( 0.0 ) );
+	q3Quaternion q( dv.x * dt, dv.y * dt, dv.z * dt, q3r32( 0.0 ) );
 
 	q *= *this;
 
-	x += q.x * r32( 0.5 );
-	y += q.y * r32( 0.5 );
-	z += q.z * r32( 0.5 );
-	w += q.w * r32( 0.5 );
+	x += q.x * q3r32( 0.5 );
+	y += q.y * q3r32( 0.5 );
+	z += q.z * q3r32( 0.5 );
+	w += q.w * q3r32( 0.5 );
 
 	*this = q3Normalize( *this );
 }
@@ -125,22 +125,22 @@ q3Quaternion& q3Quaternion::operator*=( const q3Quaternion& rhs )
 //--------------------------------------------------------------------------------------------------
 const q3Mat3 q3Quaternion::ToMat3( void ) const
 {
-	r32 qx2 = x + x;
-	r32 qy2 = y + y;
-	r32 qz2 = z + z;
-	r32 qxqx2 = x * qx2;
-	r32 qxqy2 = x * qy2;
-	r32 qxqz2 = x * qz2;
-	r32 qxqw2 = w * qx2;
-	r32 qyqy2 = y * qy2;
-	r32 qyqz2 = y * qz2;
-	r32 qyqw2 = w * qy2;
-	r32 qzqz2 = z * qz2;
-	r32 qzqw2 = w * qz2;
+	q3r32 qx2 = x + x;
+	q3r32 qy2 = y + y;
+	q3r32 qz2 = z + z;
+	q3r32 qxqx2 = x * qx2;
+	q3r32 qxqy2 = x * qy2;
+	q3r32 qxqz2 = x * qz2;
+	q3r32 qxqw2 = w * qx2;
+	q3r32 qyqy2 = y * qy2;
+	q3r32 qyqz2 = y * qz2;
+	q3r32 qyqw2 = w * qy2;
+	q3r32 qzqz2 = z * qz2;
+	q3r32 qzqw2 = w * qz2;
 
 	return q3Mat3(
-		q3Vec3( r32( 1.0 ) - qyqy2 - qzqz2, qxqy2 + qzqw2, qxqz2 - qyqw2 ),
-		q3Vec3( qxqy2 - qzqw2, r32( 1.0 ) - qxqx2 - qzqz2, qyqz2 + qxqw2 ),
-		q3Vec3( qxqz2 + qyqw2, qyqz2 - qxqw2, r32( 1.0 ) - qxqx2 - qyqy2 )
+		q3Vec3( q3r32( 1.0 ) - qyqy2 - qzqz2, qxqy2 + qzqw2, qxqz2 - qyqw2 ),
+		q3Vec3( qxqy2 - qzqw2, q3r32( 1.0 ) - qxqx2 - qzqz2, qyqz2 + qxqw2 ),
+		q3Vec3( qxqz2 + qyqw2, qyqz2 - qxqw2, q3r32( 1.0 ) - qxqx2 - qyqy2 )
 		);
 }

@@ -27,16 +27,16 @@
 #ifndef Q3TYPES_H
 #define Q3TYPES_H
 
-typedef float r32;
-typedef double r64;
-typedef float f32;
-typedef double f64;
-typedef signed char	i8;
-typedef signed short i16;
-typedef signed int i32;
-typedef unsigned char u8;
-typedef unsigned short u16;
-typedef unsigned int u32;
+typedef float q3r32;
+typedef double q3r64;
+typedef float q3f32;
+typedef double q3f64;
+typedef signed char	q3i8;
+typedef signed short q3i16;
+typedef signed int q3i32;
+typedef unsigned char q3u8;
+typedef unsigned short q3u16;
+typedef unsigned int q3u32;
 
 #define Q3_UNUSED( A ) \
 	(void)A

@@ -40,25 +40,25 @@ class q3Quaternion
 public:
 	union
 	{
-		r32 v[ 4 ];
+		q3r32 v[ 4 ];
 
 		struct
 		{
-			r32 x;
-			r32 y;
-			r32 z;
+			q3r32 x;
+			q3r32 y;
+			q3r32 z;
 
-			r32 w;
+			q3r32 w;
 		};
 	};
 
 	q3Quaternion( );
-	q3Quaternion( r32 a, r32 b, r32 c, r32 d );
-	q3Quaternion( const q3Vec3& axis, r32 radians );
+	q3Quaternion( q3r32 a, q3r32 b, q3r32 c, q3r32 d );
+	q3Quaternion( const q3Vec3& axis, q3r32 radians );
 
-	void Set( const q3Vec3& axis, r32 radians );
-	void ToAxisAngle( q3Vec3* axis, r32* angle ) const;
-	void Integrate( const q3Vec3& dv, r32 dt );
+	void Set( const q3Vec3& axis, q3r32 radians );
+	void ToAxisAngle( q3Vec3* axis, q3r32* angle ) const;
+	void Integrate( const q3Vec3& dv, q3r32 dt );
 
 	const q3Quaternion operator*( const q3Quaternion& rhs ) const;
 	q3Quaternion& operator*=( const q3Quaternion& rhs );
@@ -69,19 +69,19 @@ public:
 //--------------------------------------------------------------------------------------------------
 inline const q3Quaternion q3Normalize( const q3Quaternion& q )
 {
-	r32 x = q.x;
-	r32 y = q.y;
-	r32 z = q.z;
-	r32 w = q.w;
+	q3r32 x = q.x;
+	q3r32 y = q.y;
+	q3r32 z = q.z;
+	q3r32 w = q.w;
 
-	r32 d = q.w * q.w + q.x * q.x + q.y * q.y + q.z * q.z;
+	q3r32 d = q.w * q.w + q.x * q.x + q.y * q.y + q.z * q.z;
 
 	if( d == 0 )
-		w = r32( 1.0 );
+		w = q3r32( 1.0 );
 
-	d = r32( 1.0 ) / std::sqrt( d );
+	d = q3r32( 1.0 ) / std::sqrt( d );
 
-	if ( d > r32( 1.0e-8 ) )
+	if ( d > q3r32( 1.0e-8 ) )
 	{
 		x *= d;
 		y *= d;

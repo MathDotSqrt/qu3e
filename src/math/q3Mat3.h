@@ -41,28 +41,28 @@ struct q3Mat3
 	q3Vec3 ez;
 
 	q3Mat3( );
-	q3Mat3( r32 a, r32 b, r32 c, r32 d, r32 e, r32 f, r32 g, r32 h, r32 i );
+	q3Mat3( q3r32 a, q3r32 b, q3r32 c, q3r32 d, q3r32 e, q3r32 f, q3r32 g, q3r32 h, q3r32 i );
 	q3Mat3( const q3Vec3& _x, const q3Vec3& _y, const q3Vec3& _z );
 
-	void Set( r32 a, r32 b, r32 c, r32 d, r32 e, r32 f, r32 g, r32 h, r32 i );
-	void Set( const q3Vec3& axis, r32 angle );
+	void Set( q3r32 a, q3r32 b, q3r32 c, q3r32 d, q3r32 e, q3r32 f, q3r32 g, q3r32 h, q3r32 i );
+	void Set( const q3Vec3& axis, q3r32 angle );
 	void SetRows( const q3Vec3& x, const q3Vec3& y, const q3Vec3& z );
 
 	q3Mat3& operator=( const q3Mat3& rhs );
 	q3Mat3& operator*=( const q3Mat3& rhs );
-	q3Mat3& operator*=( r32 f );
+	q3Mat3& operator*=( q3r32 f );
 	q3Mat3& operator+=( const q3Mat3& rhs );
 	q3Mat3& operator-=( const q3Mat3& rhs );
 
-	q3Vec3& operator[]( u32 index );
-	const q3Vec3& operator[]( u32 index ) const;
+	q3Vec3& operator[]( q3u32 index );
+	const q3Vec3& operator[]( q3u32 index ) const;
 	const q3Vec3 Column0( ) const;
 	const q3Vec3 Column1( ) const;
 	const q3Vec3 Column2( ) const;
 
 	const q3Vec3 operator*( const q3Vec3& rhs ) const;
 	const q3Mat3 operator*( const q3Mat3& rhs ) const;
-	const q3Mat3 operator*( r32 f ) const;
+	const q3Mat3 operator*( q3r32 f ) const;
 	const q3Mat3 operator+( const q3Mat3& rhs ) const;
 	const q3Mat3 operator-( const q3Mat3& rhs ) const;
 };

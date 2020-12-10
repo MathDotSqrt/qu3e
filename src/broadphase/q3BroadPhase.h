@@ -41,8 +41,8 @@ struct q3AABB;
 
 struct q3ContactPair
 {
-	i32 A;
-	i32 B;
+	q3i32 A;
+	q3i32 B;
 };
 
 class q3BroadPhase
@@ -58,32 +58,32 @@ public:
 	// before generation occurs.
 	void UpdatePairs( void );
 
-	void Update( i32 id, const q3AABB& aabb );
+	void Update( q3i32 id, const q3AABB& aabb );
 
-	bool TestOverlap( i32 A, i32 B ) const;
+	bool TestOverlap( q3i32 A, q3i32 B ) const;
 
 private:
 	q3ContactManager *m_manager;
 
 	q3ContactPair* m_pairBuffer;
-	i32 m_pairCount;
-	i32 m_pairCapacity;
+	q3i32 m_pairCount;
+	q3i32 m_pairCapacity;
 
-	i32* m_moveBuffer;
-	i32 m_moveCount;
-	i32 m_moveCapacity;
+	q3i32* m_moveBuffer;
+	q3i32 m_moveCount;
+	q3i32 m_moveCapacity;
 
 	q3DynamicAABBTree m_tree;
-	i32 m_currentIndex;
+	q3i32 m_currentIndex;
 
-	void BufferMove( i32 id );
-	bool TreeCallBack( i32 index );
+	void BufferMove( q3i32 id );
+	bool TreeCallBack( q3i32 index );
 
 	friend class q3DynamicAABBTree;
 	friend class q3Scene;
 };
 
-inline bool q3BroadPhase::TreeCallBack( i32 index )
+inline bool q3BroadPhase::TreeCallBack( q3i32 index )
 {
 	// Cannot collide with self
 	if ( index == m_currentIndex )
@@ -98,8 +98,8 @@ inline bool q3BroadPhase::TreeCallBack( i32 index )
 		q3Free( oldBuffer );
 	}
 
-	i32 iA = q3Min( index, m_currentIndex );
-	i32 iB = q3Max( index, m_currentIndex );
+	q3i32 iA = q3Min( index, m_currentIndex );
+	q3i32 iB = q3Max( index, m_currentIndex );
 
 	m_pairBuffer[ m_pairCount ].A = iA;
 	m_pairBuffer[ m_pairCount ].B = iB;

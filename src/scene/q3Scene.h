@@ -75,7 +75,7 @@ public:
 class q3Scene
 {
 public:
-	q3Scene( r32 dt, const q3Vec3& gravity = q3Vec3( r32( 0.0 ), r32( -9.8 ), r32( 0.0 ) ), i32 iterations = 20 );
+	q3Scene( q3r32 dt, const q3Vec3& gravity = q3Vec3( q3r32( 0.0 ), q3r32( -9.8 ), q3r32( 0.0 ) ), q3i32 iterations = 20 );
 	~q3Scene( );
 
 	// Run the simulation forward in time by dt (fixed timestep). Variable
@@ -102,7 +102,7 @@ public:
 	// realistic (convergent). A good iteration number range is 5 to 20.
 	// Only positive numbers are accepted. Non-positive and negative
 	// inputs set the iteration count to 1.
-	void SetIterations( i32 iterations );
+	void SetIterations( q3i32 iterations );
 
 	// Friction occurs when two rigid bodies have shapes that slide along one
 	// another. The friction force resists this sliding motion.
@@ -152,15 +152,15 @@ private:
 	q3ContactManager m_contactManager;
 	q3PagedAllocator m_boxAllocator;
 
-	i32 m_bodyCount;
+	q3i32 m_bodyCount;
 	q3Body* m_bodyList;
 
 	q3Stack m_stack;
 	q3Heap m_heap;
 
 	q3Vec3 m_gravity;
-	r32 m_dt;
-	i32 m_iterations;
+	q3r32 m_dt;
+	q3i32 m_iterations;
 
 	bool m_newBox;
 	bool m_allowSleep;

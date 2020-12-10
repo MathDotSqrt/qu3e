@@ -39,23 +39,23 @@ inline void* q3Box::GetUserdata( ) const
 inline void q3BoxDef::Set( const q3Transform& tx, const q3Vec3& extents )
 {
 	m_tx = tx;
-	m_e = extents * r32( 0.5 );
+	m_e = extents * q3r32( 0.5 );
 }
 
 //--------------------------------------------------------------------------------------------------
-inline void q3BoxDef::SetRestitution( r32 restitution )
+inline void q3BoxDef::SetRestitution( q3r32 restitution )
 {
 	m_restitution = restitution;
 }
 
 //--------------------------------------------------------------------------------------------------
-inline void q3BoxDef::SetFriction( r32 friction )
+inline void q3BoxDef::SetFriction( q3r32 friction )
 {
 	m_friction = friction;
 }
 
 //--------------------------------------------------------------------------------------------------
-inline void q3BoxDef::SetDensity( r32 density )
+inline void q3BoxDef::SetDensity( q3r32 density )
 {
 	m_density = density;
 }

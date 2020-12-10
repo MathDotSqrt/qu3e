@@ -41,14 +41,14 @@ struct q3ContactConstraint;
 
 // Restitution mixing. The idea is to use the maximum bounciness, so bouncy
 // objects will never not bounce during collisions.
-inline r32 q3MixRestitution( const q3Box* A, const q3Box* B )
+inline q3r32 q3MixRestitution( const q3Box* A, const q3Box* B )
 {
 	return q3Max( A->restitution, B->restitution );
 }
 
 // Friction mixing. The idea is to allow a very low friction value to
 // drive down the mixing result. Example: anything slides on ice.
-inline r32 q3MixFriction( const q3Box* A, const q3Box* B )
+inline q3r32 q3MixFriction( const q3Box* A, const q3Box* B )
 {
 	return std::sqrt( A->friction * B->friction );
 }
@@ -68,26 +68,26 @@ union q3FeaturePair
 {
 	struct
 	{
-		u8 inR;
-		u8 outR;
-		u8 inI;
-		u8 outI;
+		q3u8 inR;
+		q3u8 outR;
+		q3u8 inI;
+		q3u8 outI;
 	};
 
-	i32 key;
+	q3i32 key;
 };
 
 struct q3Contact
 {
 	q3Vec3 position;			// World coordinate of contact
-	r32 penetration;			// Depth of penetration from collision
-	r32 normalImpulse;			// Accumulated normal impulse
-	r32 tangentImpulse[ 2 ];	// Accumulated friction impulse
-	r32 bias;					// Restitution + baumgarte
-	r32 normalMass;				// Normal constraint mass
-	r32 tangentMass[ 2 ];		// Tangent constraint mass
+	q3r32 penetration;			// Depth of penetration from collision
+	q3r32 normalImpulse;			// Accumulated normal impulse
+	q3r32 tangentImpulse[ 2 ];	// Accumulated friction impulse
+	q3r32 bias;					// Restitution + baumgarte
+	q3r32 normalMass;				// Normal constraint mass
+	q3r32 tangentMass[ 2 ];		// Tangent constraint mass
 	q3FeaturePair fp;			// Features on A and B for this contact
-	u8 warmStarted;				// Used for debug rendering
+	q3u8 warmStarted;				// Used for debug rendering
 };
 
 struct q3Manifold
@@ -100,7 +100,7 @@ struct q3Manifold
 	q3Vec3 normal;				// From A to B
 	q3Vec3 tangentVectors[ 2 ];	// Tangent vectors
 	q3Contact contacts[ 8 ];
-	i32 contactCount;
+	q3i32 contactCount;
 
 	q3Manifold* next;
 	q3Manifold* prev;
@@ -128,8 +128,8 @@ struct q3ContactConstraint
 	q3ContactConstraint* next;
 	q3ContactConstraint* prev;
 
-	r32 friction;
-	r32 restitution;
+	q3r32 friction;
+	q3r32 restitution;
 
 	q3Manifold manifold;
 
@@ -140,7 +140,7 @@ struct q3ContactConstraint
 		eIsland       = 0x00000004, // For internal marking during island forming
 	};
 
-	i32 m_flags;
+	q3i32 m_flags;
 
 	friend class q3ContactManager;
 	friend class q3Scene;

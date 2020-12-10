@@ -26,7 +26,7 @@
 //--------------------------------------------------------------------------------------------------
 inline void q3Identity( q3Vec3& v )
 {
-	v.Set( r32( 0.0 ), r32( 0.0 ), r32( 0.0 ) );
+	v.Set( q3r32( 0.0 ), q3r32( 0.0 ), q3r32( 0.0 ) );
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -36,7 +36,7 @@ inline const q3Vec3 q3Mul( const q3Vec3& a, const q3Vec3& b )
 }
 
 //--------------------------------------------------------------------------------------------------
-inline r32 q3Dot( const q3Vec3& a, const q3Vec3& b )
+inline q3r32 q3Dot( const q3Vec3& a, const q3Vec3& b )
 {
 	return a.x * b.x + a.y * b.y + a.z * b.z;
 }
@@ -52,13 +52,13 @@ inline const q3Vec3 q3Cross( const q3Vec3& a, const q3Vec3& b )
 }
 
 //--------------------------------------------------------------------------------------------------
-inline r32 q3Length( const q3Vec3& v )
+inline q3r32 q3Length( const q3Vec3& v )
 {
 	return std::sqrt( v.x * v.x + v.y * v.y + v.z * v.z );
 }
 
 //--------------------------------------------------------------------------------------------------
-inline r32 q3LengthSq( const q3Vec3& v )
+inline q3r32 q3LengthSq( const q3Vec3& v )
 {
 	return v.x * v.x + v.y * v.y + v.z * v.z;
 }
@@ -66,11 +66,11 @@ inline r32 q3LengthSq( const q3Vec3& v )
 //--------------------------------------------------------------------------------------------------
 inline const q3Vec3 q3Normalize( const q3Vec3& v )
 {
-	r32 l = q3Length( v );
+	q3r32 l = q3Length( v );
 
-	if ( l != r32( 0.0 ) )
+	if ( l != q3r32( 0.0 ) )
 	{
-		r32 inv = r32( 1.0 ) / l;
+		q3r32 inv = q3r32( 1.0 ) / l;
 		return v * inv;
 	}
 
@@ -78,21 +78,21 @@ inline const q3Vec3 q3Normalize( const q3Vec3& v )
 }
 
 //--------------------------------------------------------------------------------------------------
-inline r32 q3Distance( const q3Vec3& a, const q3Vec3& b )
+inline q3r32 q3Distance( const q3Vec3& a, const q3Vec3& b )
 {
-	r32 xp = a.x - b.x;
-	r32 yp = a.y - b.y;
-	r32 zp = a.z - b.z;
+	q3r32 xp = a.x - b.x;
+	q3r32 yp = a.y - b.y;
+	q3r32 zp = a.z - b.z;
 
 	return std::sqrt( xp * xp + yp * yp + zp * zp );
 }
 
 //--------------------------------------------------------------------------------------------------
-inline r32 q3DistanceSq( const q3Vec3& a, const q3Vec3& b )
+inline q3r32 q3DistanceSq( const q3Vec3& a, const q3Vec3& b )
 {
-	r32 xp = a.x - b.x;
-	r32 yp = a.y - b.y;
-	r32 zp = a.z - b.z;
+	q3r32 xp = a.x - b.x;
+	q3r32 yp = a.y - b.y;
+	q3r32 zp = a.z - b.z;
 
 	return xp * xp + yp * yp + zp * zp;
 }
@@ -116,13 +116,13 @@ inline const q3Vec3 q3Max( const q3Vec3& a, const q3Vec3& b )
 }
 
 //--------------------------------------------------------------------------------------------------
-inline const r32 q3MinPerElem( const q3Vec3& a )
+inline const q3r32 q3MinPerElem( const q3Vec3& a )
 {
 	return q3Min( a.x, q3Min( a.y, a.z ) );
 }
 
 //--------------------------------------------------------------------------------------------------
-inline const r32 q3MaxPerElem( const q3Vec3& a )
+inline const q3r32 q3MaxPerElem( const q3Vec3& a )
 {
 	return q3Max( a.x, q3Max( a.y, a.z ) );
 }

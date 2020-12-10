@@ -75,8 +75,8 @@ public:
 	void SetToAwake( );
 	void SetToSleep( );
 	bool IsAwake( ) const;
-	r32 GetGravityScale( ) const;
-	void SetGravityScale( r32 scale );
+	q3r32 GetGravityScale( ) const;
+	void SetGravityScale( q3r32 scale );
 	const q3Vec3 GetLocalPoint( const q3Vec3& p ) const;
 	const q3Vec3 GetLocalVector( const q3Vec3& v ) const;
 	const q3Vec3 GetWorldPoint( const q3Vec3& p ) const;
@@ -88,33 +88,33 @@ public:
 	void SetAngularVelocity( const q3Vec3 v );
 	bool CanCollide( const q3Body *other ) const;
 	const q3Transform GetTransform( ) const;
-	i32 GetFlags( ) const;
-	void SetLayers( i32 layers );
-	i32 GetLayers( ) const;
+	q3i32 GetFlags( ) const;
+	void SetLayers( q3i32 layers );
+	q3i32 GetLayers( ) const;
 	const q3Quaternion GetQuaternion( ) const;
 	void* GetUserData( ) const;	
   
-	void SetLinearDamping( r32 damping );
-	r32 GetLinearDamping( r32 damping ) const;
-	void SetAngularDamping( r32 damping );
-	r32 GetAngularDamping( r32 damping ) const;
+	void SetLinearDamping( q3r32 damping );
+	q3r32 GetLinearDamping( q3r32 damping ) const;
+	void SetAngularDamping( q3r32 damping );
+	q3r32 GetAngularDamping( q3r32 damping ) const;
 
 	// Manipulating the transformation of a body manually will result in
 	// non-physical behavior. Contacts are updated upon the next call to
 	// q3Scene::Step( ). Parameters are in world space. All body types
 	// can be updated.
 	void SetTransform( const q3Vec3& position );
-	void SetTransform( const q3Vec3& position, const q3Vec3& axis, r32 angle );
+	void SetTransform( const q3Vec3& position, const q3Vec3& axis, q3r32 angle );
 
 	// Used for debug rendering lines, triangles and basic lighting
 	void Render( q3Render* render ) const;
 
 	// Dump this rigid body and its shapes into a log file. The log can be
 	// used as C++ code to re-create an initial scene setup.
-	void Dump( FILE* file, i32 index ) const;
+	void Dump( FILE* file, q3i32 index ) const;
 
-	r32 GetMass( ) const;
-	r32 GetInvMass( ) const;
+	q3r32 GetMass( ) const;
+	q3r32 GetInvMass( ) const;
 private:
 	// m_flags
 	enum
@@ -133,8 +133,8 @@ private:
 
 	q3Mat3 m_invInertiaModel;
 	q3Mat3 m_invInertiaWorld;
-	r32 m_mass;
-	r32 m_invMass;
+	q3r32 m_mass;
+	q3r32 m_invMass;
 	q3Vec3 m_linearVelocity;
 	q3Vec3 m_angularVelocity;
 	q3Vec3 m_force;
@@ -143,20 +143,20 @@ private:
 	q3Quaternion m_q;
 	q3Vec3 m_localCenter;
 	q3Vec3 m_worldCenter;
-	r32 m_sleepTime;
-	r32 m_gravityScale;
-	i32 m_layers;
-	i32 m_flags;
+	q3r32 m_sleepTime;
+	q3r32 m_gravityScale;
+	q3i32 m_layers;
+	q3i32 m_flags;
 
 	q3Box* m_boxes;
 	void *m_userData;
 	q3Scene* m_scene;
 	q3Body* m_next;
 	q3Body* m_prev;
-	i32 m_islandIndex;
+	q3i32 m_islandIndex;
 
-	r32 m_linearDamping;
-	r32 m_angularDamping;
+	q3r32 m_linearDamping;
+	q3r32 m_angularDamping;
 
 	q3ContactEdge* m_contactList;
 
@@ -181,13 +181,13 @@ struct q3BodyDef
 	{
 		// Set all initial positions/velocties to zero
 		q3Identity( axis );
-		angle = r32( 0.0 );
+		angle = q3r32( 0.0 );
 		q3Identity( position );
 		q3Identity( linearVelocity );
 		q3Identity( angularVelocity );
 
 		// Usually a gravity scale of 1 is the best
-		gravityScale = r32( 1.0 );
+		gravityScale = q3r32( 1.0 );
 
 		// Common default values
 		bodyType = eStaticBody;
@@ -200,21 +200,21 @@ struct q3BodyDef
 		lockAxisY = false;
 		lockAxisZ = false;
 
-		linearDamping = r32( 0.0 );
-		angularDamping = r32( 0.1 );
+		linearDamping = q3r32( 0.0 );
+		angularDamping = q3r32( 0.1 );
 	}
 
 	q3Vec3 axis;			// Initial world transformation.
-	r32 angle;				// Initial world transformation. Radians.
+	q3r32 angle;				// Initial world transformation. Radians.
 	q3Vec3 position;		// Initial world transformation.
 	q3Vec3 linearVelocity;	// Initial linear velocity in world space.
 	q3Vec3 angularVelocity;	// Initial angular velocity in world space.
-	r32 gravityScale;		// Convenient scale values for gravity x, y and z directions.
-	i32 layers;				// Bitmask of collision layers. Bodies matching at least one layer can collide.
+	q3r32 gravityScale;		// Convenient scale values for gravity x, y and z directions.
+	q3i32 layers;				// Bitmask of collision layers. Bodies matching at least one layer can collide.
 	void* userData;			// Use to store application specific data.
 
-	r32 linearDamping;
-	r32 angularDamping;
+	q3r32 linearDamping;
+	q3r32 angularDamping;
 
 	// Static, dynamic or kinematic. Dynamic bodies with zero mass are defaulted
 	// to a mass of 1. Static bodies never move or integrate, and are very CPU

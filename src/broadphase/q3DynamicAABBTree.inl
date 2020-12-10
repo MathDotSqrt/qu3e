@@ -22,9 +22,9 @@
 //--------------------------------------------------------------------------------------------------
 // q3DynamicAABBTree
 //--------------------------------------------------------------------------------------------------
-inline void q3DynamicAABBTree::AddToFreeList( i32 index )
+inline void q3DynamicAABBTree::AddToFreeList( q3i32 index )
 {
-	for ( i32 i = index; i < m_capacity - 1; ++i)
+	for ( q3i32 i = index; i < m_capacity - 1; ++i)
 	{
 		m_nodes[ i ].next = i + 1;
 		m_nodes[ i ].height = Node::Null;
@@ -36,7 +36,7 @@ inline void q3DynamicAABBTree::AddToFreeList( i32 index )
 }
 
 //--------------------------------------------------------------------------------------------------
-inline void q3DynamicAABBTree::DeallocateNode( i32 index )
+inline void q3DynamicAABBTree::DeallocateNode( q3i32 index )
 {
 	assert( index >= 0 && index < m_capacity );
 
@@ -51,9 +51,9 @@ inline void q3DynamicAABBTree::DeallocateNode( i32 index )
 template <typename T>
 inline void q3DynamicAABBTree::Query( T *cb, const q3AABB& aabb ) const
 {
-	const i32 k_stackCapacity = 256;
-	i32 stack[ k_stackCapacity ];
-	i32 sp = 1;
+	const q3i32 k_stackCapacity = 256;
+	q3i32 stack[ k_stackCapacity ];
+	q3i32 sp = 1;
 
 	*stack = m_root;
 
@@ -62,7 +62,7 @@ inline void q3DynamicAABBTree::Query( T *cb, const q3AABB& aabb ) const
 		// k_stackCapacity too small
 		assert( sp < k_stackCapacity );
 
-		i32 id = stack[ --sp ];
+		q3i32 id = stack[ --sp ];
 
 		const Node *n = m_nodes + id;
 		if ( q3AABBtoAABB( aabb, n->aabb ) )
@@ -85,10 +85,10 @@ inline void q3DynamicAABBTree::Query( T *cb, const q3AABB& aabb ) const
 template <typename T>
 void q3DynamicAABBTree::Query( T *cb, q3RaycastData& rayCast ) const
 {
-	const r32 k_epsilon = r32( 1.0e-6 );
-	const i32 k_stackCapacity = 256;
-	i32 stack[ k_stackCapacity ];
-	i32 sp = 1;
+	const q3r32 k_epsilon = q3r32( 1.0e-6 );
+	const q3i32 k_stackCapacity = 256;
+	q3i32 stack[ k_stackCapacity ];
+	q3i32 sp = 1;
 
 	*stack = m_root;
 
@@ -100,7 +100,7 @@ void q3DynamicAABBTree::Query( T *cb, q3RaycastData& rayCast ) const
 		// k_stackCapacity too small
 		assert( sp < k_stackCapacity );
 
-		i32 id = stack[--sp];
+		q3i32 id = stack[--sp];
 
 		if ( id == Node::Null )
 			continue;
@@ -111,17 +111,17 @@ void q3DynamicAABBTree::Query( T *cb, q3RaycastData& rayCast ) const
 		q3Vec3 d = p1 - p0;
 		q3Vec3 m = p0 + p1 - n->aabb.min - n->aabb.max;
 
-		r32 adx = q3Abs( d.x );
+		q3r32 adx = q3Abs( d.x );
 
 		if ( q3Abs( m.x ) > e.x + adx )
 			continue;
 
-		r32 ady = q3Abs( d.y );
+		q3r32 ady = q3Abs( d.y );
 
 		if ( q3Abs( m.y ) > e.y + ady )
 			continue;
 
-		r32 adz = q3Abs( d.z );
+		q3r32 adz = q3Abs( d.z );
 
 		if ( q3Abs( m.z ) > e.z + adz )
 			continue;

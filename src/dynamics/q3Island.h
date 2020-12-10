@@ -54,17 +54,17 @@ struct q3Island
 
 	q3Body **m_bodies;
 	q3VelocityState *m_velocities;
-	i32 m_bodyCapacity;
-	i32 m_bodyCount;
+	q3i32 m_bodyCapacity;
+	q3i32 m_bodyCount;
 
 	q3ContactConstraint **m_contacts;
 	q3ContactConstraintState *m_contactStates;
-	i32 m_contactCount;
-	i32 m_contactCapacity;
+	q3i32 m_contactCount;
+	q3i32 m_contactCapacity;
 
-	r32 m_dt;
+	q3r32 m_dt;
 	q3Vec3 m_gravity;
-	i32 m_iterations;
+	q3i32 m_iterations;
 
 	bool m_allowSleep;
 	bool m_enableFriction;

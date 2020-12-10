@@ -39,7 +39,7 @@ struct q3MassData
 {
 	q3Mat3 inertia;
 	q3Vec3 center;
-	r32 mass;
+	q3r32 mass;
 };
 
 //--------------------------------------------------------------------------------------------------
@@ -52,10 +52,10 @@ struct q3Box
 
 	q3Box* next;
 	class q3Body* body;
-	r32 friction;
-	r32 restitution;
-	r32 density;
-	i32 broadPhaseIndex;
+	q3r32 friction;
+	q3r32 restitution;
+	q3r32 density;
+	q3i32 broadPhaseIndex;
 	mutable void* userData;
 	mutable bool sensor;
 
@@ -79,26 +79,26 @@ public:
 	q3BoxDef( )
 	{
 		// Common default values
-		m_friction = r32( 0.4 );
-		m_restitution = r32( 0.2 );
-		m_density = r32( 1.0 );
+		m_friction = q3r32( 0.4 );
+		m_restitution = q3r32( 0.2 );
+		m_density = q3r32( 1.0 );
 		m_sensor = false;
 	}
 
 	void Set( const q3Transform& tx, const q3Vec3& extents );
 
-	void SetFriction( r32 friction );
-	void SetRestitution( r32 restitution );
-	void SetDensity( r32 density );
+	void SetFriction( q3r32 friction );
+	void SetRestitution( q3r32 restitution );
+	void SetDensity( q3r32 density );
 	void SetSensor( bool sensor );
 
 private:
 	q3Transform m_tx;
 	q3Vec3 m_e;
 
-	r32 m_friction;
-	r32 m_restitution;
-	r32 m_density;
+	q3r32 m_friction;
+	q3r32 m_restitution;
+	q3r32 m_density;
 	bool m_sensor;
 
 	friend class q3Body;
